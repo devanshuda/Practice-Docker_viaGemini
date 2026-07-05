@@ -1,0 +1,37 @@
+# -------------------
+# 1. The Deployment
+# -------------------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-python-app
+spec:
+  replicas: 2 # Let's run TWO copies of your app for high availability!
+  selector:
+    matchLabels:
+      app: python-web
+  template:
+    metadata:
+      labels:
+        app: python-web
+    spec:
+      containers:
+      - name: web-container
+        image: dodado12/my-first-app:v1
+        ports:
+        - containerPort: 5000
+
+---
+# -------------------
+# 2. The Service
+# -------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-service
+spec:
+  selector:
+    app: python-web # This connects the Service to the Deployment above
+  ports:
+  - port: 8080 # The port we want to use to access the app
+    targetPort: 5000 # The port the container is listening on
