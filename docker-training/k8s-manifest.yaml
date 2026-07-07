@@ -35,3 +35,33 @@ spec:
   ports:
   - port: 8080 # The port we want to use to access the app
     targetPort: 5000 # The port the container is listening on
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: python-web
+  ports:
+  - port: 8080         # Internal cluster port
+    targetPort: 5000   # The port the container is listening on
+    nodePort: 30007    # The physical port opened on the Node's IP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-app-externalip
+spec:
+  type: ClusterIP      # It remains a standard ClusterIP
+  selector:
+    app: python-web
+  ports:
+  - port: 8080
+    targetPort: 5000
+  externalIPs:
+  - 198.51.100.45      # Replace with an actual IP routed to your cluster Node

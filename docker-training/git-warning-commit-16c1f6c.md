@@ -1,0 +1,2 @@
+warning: in the working copy of 'docker-training/session1-kubernetes-study-guide.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docker-training/summary1-docker-and-kubernetes-architecture-networking.md', LF will be replaced by CRLF the next time Git touches it
